@@ -50,8 +50,8 @@ if (!projectIdEnv) {
 }
 const projectId: string = String(projectIdEnv);
 
-const BQ_DATASET = process.env.BQ_DATASET || 'healthtest_ai_dataset';
-const BQ_COMPLIANCE_TABLE = process.env.BQ_COMPLIANCE_TABLE || 'compliance_standards';
+const BQ_DATASET = process.env.BQ_DATASET ;
+const BQ_COMPLIANCE_TABLE = process.env.BQ_COMPLIANCE_TABLE ;
 const BQ_AUDIT_TABLE = process.env.BQ_AUDIT_TABLE || 'audit_trail';
 
 const bq = new BigQuery({ projectId });

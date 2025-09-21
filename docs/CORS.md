@@ -27,7 +27,7 @@ PowerShell examples (run from repo root or provide full path to `cors.json`):
 # gcloud auth application-default login
 
 # Apply CORS config to your bucket
-gsutil cors set .\cors.json gs://skillful-jetty-467110-v3-temp
+gsutil cors set .\cors.json gs://-467110-v3-temp
 
 # Verify
 gsutil cors get gs://skillful-jetty-467110-v3-temp

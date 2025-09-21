@@ -3,7 +3,7 @@
 -- ==========================
 
 -- HIPAA
-INSERT INTO `skillful-jetty-467110-v3.healthtest_ai_dataset.compliance_standards`
+INSERT INTO `.healthtest_ai_dataset.compliance_standards`
 (standard_id, standard_name, standard_version, jurisdiction, category, source_url,
  raw_text, requirement_id, requirement_text, evidence_needed, testing_guidance, keywords)
 VALUES

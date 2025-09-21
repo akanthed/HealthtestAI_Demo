@@ -28,3 +28,7 @@ node_modules
 functions/node_modules/*
 scripts/*
 health_test_ai.json
+infra/seed_compliance.sql
+apphosting.yaml
+docs/CORS.md
+docs/CORS.md
