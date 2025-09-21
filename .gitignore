@@ -1,0 +1,30 @@
+# Dependencies
+/node_modules
+/functions/node_modules
+
+# Build artifacts
+/.next/
+/out/
+/functions/lib/
+
+# Local Environment Variables
+.env.local
+.env.*.local
+functions/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Other
+.DS_Store
+*.pem
+.env
+functions/.env.yaml
+node_modules
+node_modules
+node_modules
+functions/node_modules/*
+scripts/*
+health_test_ai.json

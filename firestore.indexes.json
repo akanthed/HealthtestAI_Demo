@@ -1,0 +1,67 @@
+{
+    "indexes": [
+      {
+        "collectionGroup": "testCases",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "requirementId", "order": "ASCENDING" },
+          { "fieldPath": "status", "order": "ASCENDING" },
+          { "fieldPath": "createdAt", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "testCases",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "status", "order": "ASCENDING" },
+          { "fieldPath": "createdAt", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "testCases",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "requirementId", "order": "ASCENDING" },
+          { "fieldPath": "createdAt", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "testCases",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "complianceTags", "arrayConfig": "CONTAINS" },
+          { "fieldPath": "status", "order": "ASCENDING" },
+          { "fieldPath": "createdAt", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "testCases",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "status", "order": "ASCENDING" },
+          { "fieldPath": "complianceTags", "arrayConfig": "CONTAINS" },
+          { "fieldPath": "createdAt", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "requirements",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "complianceStandards", "order": "ASCENDING" },
+          { "fieldPath": "status", "order": "ASCENDING" },
+          { "fieldPath": "priority", "order": "ASCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "auditLogs",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "action", "order": "ASCENDING" },
+          { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      }
+    ],
+    "fieldOverrides": []
+  }
+  
