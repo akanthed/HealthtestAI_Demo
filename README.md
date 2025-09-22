@@ -7,7 +7,7 @@ This is a full-stack application built with Next.js, Firebase, and Genkit that h
 - **Framework**: [Next.js](https://nextjs.org/) (with App Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
 - **AI/Generative**: [Genkit](https://firebase.google.com/docs/genkit)
-- **Backend**: [Firebase Cloud Functions](https://firebase.google.com/docs/functions)
+- **Backend**: Firebase (no Cloud Functions)
 - **Database**: [Firestore](https://firebase.google.com/docs/firestore) & [BigQuery](https://cloud.google.com/bigquery)
 - **Authentication**: [Firebase Authentication](https://firebase.google.com/docs/auth)
 
@@ -25,7 +25,7 @@ Before you begin, ensure you have the following installed:
 You will also need a Firebase project with the following enabled:
 - **Authentication**: To handle user sign-in.
 - **Firestore**: To store application data.
-- **Cloud Functions**: To run the backend logic.
+
 - **BigQuery**: For analytics and compliance data.
 - **Vertex AI**: For the generative AI capabilities.
 
@@ -36,19 +36,6 @@ You will also need a Firebase project with the following enabled:
 # Clone your project from your repository
 git clone <your-repository-url>
 cd <your-project-directory>
-```
-
-**B. Install Dependencies**
-This project has two `package.json` files. You need to install dependencies for both the root (frontend) and the `functions` (backend) directories.
-
-```bash
-# Install root dependencies (for Next.js)
-npm install
-
-# Install functions dependencies
-cd functions
-npm install
-cd ..
 ```
 
 ### 3. Environment Variables
@@ -72,17 +59,7 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 GENERATE_TESTCASES_URL=http://localhost:3400/generateTestCases
 ```
 
-**B. Backend Environment (`functions/.env`)**
-Create a `.env` file inside the `functions/` directory. This will hold configuration for your backend services.
-
-```
-# functions/.env
-GCP_PROJECT=your-gcp-project-id
-VERTEX_AI_LOCATION=us-central1
-# Add other backend-specific variables if needed (e.g., KMS_KEY_NAME)
-```
-
-**C. Authenticate with Google Cloud**
+**B. Authenticate with Google Cloud**
 To allow your local backend to access Google Cloud services like Vertex AI and BigQuery, you need to authenticate.
 
 ```bash
@@ -117,7 +94,7 @@ Your application should now be running and accessible at `http://localhost:9002`
 
 ### 6. Deploying to Vercel
 
-You can deploy the Next.js (App Router) frontend to Vercel while continuing to use Firebase/Google Cloud for backend services (Firestore, Auth, BigQuery, Vertex AI, Cloud Functions, Cloud Run workers).
+You can deploy the Next.js (App Router) frontend to Vercel while continuing to use Firebase/Google Cloud for backend services (Firestore, Auth, BigQuery, Vertex AI).
 
 #### A. One-Time Vercel Setup
 1. Create (or log into) a Vercel account.
@@ -135,7 +112,7 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
 NEXT_PUBLIC_FIREBASE_APP_ID=...
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=...
-# Optional / backend-assist vars if server components or edge functions need them:
+# Optional / backend-assist vars if server components need them:
 PROJECT_ID=...
 FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account",...}
 GOOGLE_APPLICATION_CREDENTIALS=NOT_USED_ON_VERCEL
@@ -146,19 +123,19 @@ Notes:
 
 #### C. Genkit / AI Flow Calls in Production
 If the Genkit flows currently run only via `npm run genkit:dev` locally, you have two options:
-1. Keep AI generation behind Cloud Functions / Cloud Run (recommended). Deploy those separately and point the frontend to their HTTPS endpoint via a new env var (e.g. `GENERATE_TESTCASES_URL=https://<your-cloud-run-url>/generateTestCases`).
+1. Keep AI generation behind a cloud endpoint. Deploy those separately and point the frontend to their HTTPS endpoint via a new env var (e.g. `GENERATE_TESTCASES_URL=https://<your-cloud-endpoint>/generateTestCases`).
 2. (Advanced) Bundle flows directly inside the Next.js server runtime using `@genkit-ai/next`. Ensure any Vertex AI access happens server-side only.
 
 Add whichever endpoint you choose as: `GENERATE_TESTCASES_URL=https://...` (if the frontend expects it). If the code currently hardcodes localhost, refactor to read from `process.env.GENERATE_TESTCASES_URL`.
 
 #### D. Build & Output
-Vercel uses `npm install` then `npm run build` automatically. The generated `.next` directory is served via the Vercel platform. No custom `routes` needed for `favicon.ico` (Next handles this). The provided `vercel.json` supplies function runtime config.
+Vercel uses `npm install` then `npm run build` automatically. The generated `.next` directory is served via the Vercel platform. The provided `vercel.json` supplies runtime config.
 
 #### E. Firebase Auth Domain
 Ensure the Vercel Production domain (e.g. `your-app.vercel.app` and any custom domain) is added to Firebase Console > Authentication > Settings > Authorized domains.
 
 #### F. Firestore / BigQuery / Vertex AI Access From Vercel
-Because Vercel serverless functions do not have default GCP credentials, you must:
+Because Vercel serverless does not have default GCP credentials, you must:
 - Use a service account JSON (least privilege) placed in `FIREBASE_SERVICE_ACCOUNT_JSON` env var.
 - In server code, parse it and initialize admin SDK / Google clients explicitly.
 - Limit scopes (roles) to only what is required (Firestore, BigQuery read/write, Vertex AI invocation).
