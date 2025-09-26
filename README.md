@@ -56,6 +56,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 
 # This points the frontend to your locally running Genkit flows
+# The function that serves the GENERATE_TESTCASES_URL endpoint is implemented in `src/ai/flows/healthcare_rag.py`.
 GENERATE_TESTCASES_URL=http://localhost:3400/generateTestCases
 ```
 
